@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ninja Gold</title> 
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'ninjagold/main.css' %}" media="screen" title="no title" charset="utf-8">
+</head>
+
+<body>
+    <h2>Your Gold: {{request.session.gold}}</h2>
+    <div class="island">
+        <h3>Farm</h3>
+        <p>(earns 10-20 gold)</p>
+        <form action="/process_money/farm" method="post">{% csrf_token %}
+            <input type="submit" name="building" value="Find Gold!">
+        </form>
+    </div>
+
+    <div class="island">
+        <h3>Cave</h3>
+        <p>(earns 5-10 gold)</p>
+        <form action="/process_money/cave" method="post">{% csrf_token %}
+            <input type="submit" name="building" value="Find Gold!">
+        </form>
+    </div>
+
+    <div class="island">
+        <h3>House</h3>
+        <p>(earns 2-5 gold)</p>
+        <form action="/process_money/house" method="post">{% csrf_token %}
+            <input type="submit" name="building" value="Find Gold!">
+        </form>
+    </div>
+
+    <div class="island">
+        <h3>Casino</h3>
+        <p>(earns/takes 0-50 gold)</p>
+        <form action="/process_money/casino" method="post">{% csrf_token %}
+            <input type="submit" name="building" value="Find Gold!">
+        </form>
+    </div>
+
+    <h3>Activities:</h3>
+    <div class="log">
+        {% for l in request.session.log %}
+            {% if l.0 == "L" %}
+                <p class="red">{{ l }}</p>
+            {% else %}
+                <p class="green">{{ l }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <form action="/reset" method="post">{% csrf_token %}
+        <input type="submit" value="Reset">
+    </form>
+</body>
+
+</html>

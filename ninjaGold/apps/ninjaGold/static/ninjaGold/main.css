@@ -1,0 +1,32 @@
+
+.island{
+	width: 200px;
+	height: 160px;
+	background-color: #cccccc;
+	display: inline-block;
+	border: 4px solid black;
+	vertical-align: top;
+	text-align: center;
+}
+
+.log{
+	border: 4px solid black;
+	background-color: #cccccc;
+	width: 833px;
+	height: 160px;
+	overflow: scroll;
+	padding-left: 3px;
+	padding-top: 2px;
+}
+
+.red{
+	color: red;
+	margin: 0px;
+	margin-top: 2px;
+}
+
+.green{
+	color: green;
+	margin: 0px;
+	margin-top: 2px;
+}
