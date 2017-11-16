@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Result</title>
+</head>
+<body>
+    <h2>Thanks for submitting the form! You've submitted this form {{request.session.count}} times!</h2>
+    <p>Submitted Information:</p>
+    <!-- <p>Name: {{request.session.name}}</p>
+    <p>Location: {{request.session.location}}</p>
+    <p>Language: {{request.session.language}}</p>
+    <p>Comment: {{request.session.comment}}</p> -->
+    <table>
+        <tbody>
+            <tr>
+                <td>Name:</td>
+                <td>{request.session.name}}</td>
+            </tr>
+            <tr>
+                <td>Location:</td>
+                <td>{{request.session.location}}</td>
+            </tr>
+            <tr>
+                <td>Language:</td>
+                <td>{{request.session.language}}</td>
+            </tr>
+            <tr>
+                <td>Comment:</td>
+                <td>{{request.session.comment}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form action="/">
+        <input type="submit" value="Go Back!" />
+    </form>
+
+</body>
+</html>
