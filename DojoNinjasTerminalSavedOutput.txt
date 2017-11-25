@@ -1,0 +1,911 @@
+bkilas-MBP:~ bkila$ cd desktop
+bkilas-MBP:desktop bkila$ cd newproject/
+bkilas-MBP:newproject bkila$ python manage.py managemigrations
+Unknown command: 'managemigrations'
+Type 'manage.py help' for usage.
+bkilas-MBP:newproject bkila$ python manage.py makemigrations
+Migrations for 'users':
+  apps/users/migrations/0001_initial.py:
+    - Create model Blog
+bkilas-MBP:newproject bkila$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, users
+Running migrations:
+  Rendering model states... DONE
+  Applying users.0001_initial... OK
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: from apps.{{users}}.models import *
+  File "<ipython-input-1-1043918c5897>", line 1
+    from apps.{{users}}.models import *
+              ^
+SyntaxError: invalid syntax
+
+
+In [2]: from apps.users.models import *
+
+In [3]: Users.objects.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-3-9a61cc974b48> in <module>()
+----> 1 Users.objects.all()
+
+NameError: name 'Users' is not defined
+
+In [4]: users.objects.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-4-f0caad6f5d2a> in <module>()
+----> 1 users.objects.all()
+
+NameError: name 'users' is not defined
+
+In [5]: python manage.py makemigrations
+  File "<ipython-input-5-b39a926b2782>", line 1
+    python manage.py makemigrations
+                ^
+SyntaxError: invalid syntax
+
+
+In [6]: python manage.py shell
+  File "<ipython-input-6-63f51754d940>", line 1
+    python manage.py shell
+                ^
+SyntaxError: invalid syntax
+
+
+In [7]: 
+
+
+[1]+  Stopped                 python manage.py shell
+bkilas-MBP:newproject bkila$ 
+bkilas-MBP:newproject bkila$ python manage.py makemigrations
+Did you rename the users.Blog model to Users? [y/N] y
+Migrations for 'users':
+  apps/users/migrations/0002_auto_20171113_1840.py:
+    - Rename model Blog to Users
+bkilas-MBP:newproject bkila$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, users
+Running migrations:
+  Rendering model states... DONE
+  Applying users.0002_auto_20171113_1840... OK
+The following content types are stale and need to be deleted:
+
+    users | blog
+
+Any objects related to these content types by a foreign key will also
+be deleted. Are you sure you want to delete these content types?
+If you're unsure, answer 'no'.
+
+    Type 'yes' to continue, or 'no' to cancel: yes     
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: users.objects.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-1-f0caad6f5d2a> in <module>()
+----> 1 users.objects.all()
+
+NameError: name 'users' is not defined
+
+In [2]: Users.objects.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-2-9a61cc974b48> in <module>()
+----> 1 Users.objects.all()
+
+NameError: name 'Users' is not defined
+
+
+[2]+  Stopped                 python manage.py shell
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: Users.objects.create(first_name="Brian)
+  File "<ipython-input-1-6ee832006366>", line 1
+    Users.objects.create(first_name="Brian)
+                                          ^
+SyntaxError: EOL while scanning string literal
+
+
+In [2]: Users.objects.create(first_name="Brian")
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-2-8b9c7ea3afc4> in <module>()
+----> 1 Users.objects.create(first_name="Brian")
+
+NameError: name 'Users' is not defined
+
+In [3]: from apps.users.models import *
+
+In [4]: users.objects.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-4-f0caad6f5d2a> in <module>()
+----> 1 users.objects.all()
+
+NameError: name 'users' is not defined
+
+In [5]: Users.objects.all()
+Out[5]: <QuerySet []>
+
+In [6]: Users.objects.create(first_name="Brian", last_name="Kang")
+---------------------------------------------------------------------------
+IntegrityError                            Traceback (most recent call last)
+<ipython-input-6-e89a8eaab908> in <module>()
+----> 1 Users.objects.create(first_name="Brian", last_name="Kang")
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in create(self, **kwargs)
+    397         obj = self.model(**kwargs)
+    398         self._for_write = True
+--> 399         obj.save(force_insert=True, using=self.db)
+    400         return obj
+    401 
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in save(self, force_insert, force_update, using, update_fields)
+    794 
+    795         self.save_base(using=using, force_insert=force_insert,
+--> 796                        force_update=force_update, update_fields=update_fields)
+    797     save.alters_data = True
+    798 
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in save_base(self, raw, force_insert, force_update, using, update_fields)
+    822             if not raw:
+    823                 self._save_parents(cls, using, update_fields)
+--> 824             updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+    825         # Store the database on which the object was saved
+    826         self._state.db = using
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in _save_table(self, raw, cls, force_insert, force_update, using, update_fields)
+    906 
+    907             update_pk = bool(meta.has_auto_field and not pk_set)
+--> 908             result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+    909             if update_pk:
+    910                 setattr(self, meta.pk.attname, result)
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in _do_insert(self, manager, using, fields, update_pk, raw)
+    945         """
+    946         return manager._insert([self], fields=fields, return_id=update_pk,
+--> 947                                using=using, raw=raw)
+    948 
+    949     def delete(self, using=None, keep_parents=False):
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in _insert(self, objs, fields, return_id, raw, using)
+   1041         query = sql.InsertQuery(self.model)
+   1042         query.insert_values(fields, objs, raw=raw)
+-> 1043         return query.get_compiler(using=using).execute_sql(return_id)
+   1044     _insert.alters_data = True
+   1045     _insert.queryset_only = False
+
+/Library/Python/2.7/site-packages/django/db/models/sql/compiler.pyc in execute_sql(self, return_id)
+   1052         with self.connection.cursor() as cursor:
+   1053             for sql, params in self.as_sql():
+-> 1054                 cursor.execute(sql, params)
+   1055             if not (return_id and cursor):
+   1056                 return
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     77         start = time()
+     78         try:
+---> 79             return super(CursorDebugWrapper, self).execute(sql, params)
+     80         finally:
+     81             stop = time()
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     62                 return self.cursor.execute(sql)
+     63             else:
+---> 64                 return self.cursor.execute(sql, params)
+     65 
+     66     def executemany(self, sql, param_list):
+
+/Library/Python/2.7/site-packages/django/db/utils.pyc in __exit__(self, exc_type, exc_value, traceback)
+     92                 if dj_exc_type not in (DataError, IntegrityError):
+     93                     self.wrapper.errors_occurred = True
+---> 94                 six.reraise(dj_exc_type, dj_exc_value, traceback)
+     95 
+     96     def __call__(self, func):
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     62                 return self.cursor.execute(sql)
+     63             else:
+---> 64                 return self.cursor.execute(sql, params)
+     65 
+     66     def executemany(self, sql, param_list):
+
+/Library/Python/2.7/site-packages/django/db/backends/sqlite3/base.pyc in execute(self, query, params)
+    335             return Database.Cursor.execute(self, query)
+    336         query = self.convert_query(query)
+--> 337         return Database.Cursor.execute(self, query, params)
+    338 
+    339     def executemany(self, query, param_list):
+
+IntegrityError: NOT NULL constraint failed: users_users.age
+
+In [7]: Users.objects.all()
+Out[7]: <QuerySet []>
+
+In [8]: Users.objects.create(first_name="Brian", last_name="Kang", email_address
+   ...: ="brian@me.com", age="21")
+Out[8]: <Users: Users object>
+
+In [9]: Users.objects.create(first_name="Boopy", last_name="Kang", email_address
+   ...: ="boopy@me.com", age="23")
+Out[9]: <Users: Users object>
+
+In [10]: Users.objects.all()
+Out[10]: <QuerySet [<Users: Users object>, <Users: Users object>]>
+
+In [11]: Users.objects.first()
+Out[11]: <Users: Users object>
+
+In [12]: Users.objects.last()
+Out[12]: <Users: Users object>
+
+In [13]: b = Users(first_name="baked", last_name="potato", email_address="bp@bp.
+    ...: com", age="1")
+
+In [14]: b.age = "5"
+
+In [15]: b.save()
+
+In [16]: Users.objects.all()
+Out[16]: <QuerySet [<Users: Users object>, <Users: Users object>, <Users: Users object>]>
+
+In [17]: Blog.objects.first.name
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-17-c61693c656e6> in <module>()
+----> 1 Blog.objects.first.name
+
+NameError: name 'Blog' is not defined
+
+In [18]: Users.objects.first.name
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-18-dc9130780383> in <module>()
+----> 1 Users.objects.first.name
+
+AttributeError: 'function' object has no attribute 'name'
+
+In [19]: Users.objects.first(name)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-19-ae569f51d19f> in <module>()
+----> 1 Users.objects.first(name)
+
+NameError: name 'name' is not defined
+
+In [20]: Users.objects.first(first_name)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-20-b044ee6805a7> in <module>()
+----> 1 Users.objects.first(first_name)
+
+NameError: name 'first_name' is not defined
+
+In [21]: Users.objects.first.first_name()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-21-43272c622cf1> in <module>()
+----> 1 Users.objects.first.first_name()
+
+AttributeError: 'function' object has no attribute 'first_name'
+
+In [22]: Users.objects.first().first_name
+Out[22]: u'Brian'
+
+In [23]: Users.objects.last().first_name
+Out[23]: u'baked'
+
+In [24]: b.email = "briankk123@gmail.com"
+
+In [25]: b.save()
+
+In [26]: Users.objects.b.age
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-26-53ea64613d0a> in <module>()
+----> 1 Users.objects.b.age
+
+AttributeError: 'Manager' object has no attribute 'b'
+
+In [27]: Users.objects.b().age
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-27-1bcd4bf031fd> in <module>()
+----> 1 Users.objects.b().age
+
+AttributeError: 'Manager' object has no attribute 'b'
+
+In [28]: Users.objects.order_by(-first_name)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-28-3779bd11d4c3> in <module>()
+----> 1 Users.objects.order_by(-first_name)
+
+NameError: name 'first_name' is not defined
+
+In [29]: Users.objects.order_by("-first_name")
+Out[29]: <QuerySet [<Users: Users object>, <Users: Users object>, <Users: Users object>]>
+
+In [30]: Users.objects.order_by("-first_name")
+Out[30]: <QuerySet [<Users: Users object>, <Users: Users object>, <Users: Users object>]>
+
+In [31]: Users.objects.get(id=3)
+Out[31]: <Users: Users object>
+
+In [32]: Users.objects.get(id=3).last_name
+Out[32]: u'potato'
+
+In [33]: Users.objects.get(id=3).last_name="yooo"
+
+In [34]: Users.objects.get(id=3).last_name
+Out[34]: u'potato'
+
+In [35]: u = Users.objects.get(id=3)
+
+In [36]: u.last_name = 'yooo'
+
+In [37]: u.save()
+
+In [38]: Users.objects.get(id=3).last_name
+Out[38]: u'yooo'
+
+In [39]: Users.objects.all().order_by("-first_name")
+Out[39]: <QuerySet [<Users: Users object>, <Users: Users object>, <Users: Users object>]>
+
+In [40]: from shell_helpers import create_valid_user
+---------------------------------------------------------------------------
+ImportError                               Traceback (most recent call last)
+<ipython-input-40-02ef688d414f> in <module>()
+----> 1 from shell_helpers import create_valid_user
+
+ImportError: No module named shell_helpers
+
+
+[3]+  Stopped                 python manage.py shell
+bkilas-MBP:newproject bkila$ cd ..
+bkilas-MBP:desktop bkila$ cd newproject/
+bkilas-MBP:newproject bkila$ cd apps
+bkilas-MBP:apps bkila$ ls
+__init__.py	__init__.pyc	blogs_app	surveys		users
+bkilas-MBP:apps bkila$ django-admin startapp dojo_ninjas
+bkilas-MBP:apps bkila$ cd dojo_ninjas/
+bkilas-MBP:dojo_ninjas bkila$ touch urls.py
+bkilas-MBP:dojo_ninjas bkila$ mkdir templates
+bkilas-MBP:dojo_ninjas bkila$ cd templates/
+bkilas-MBP:templates bkila$ mkdir dojo_ninjas
+bkilas-MBP:templates bkila$ touch index.html
+bkilas-MBP:templates bkila$ cd ..
+bkilas-MBP:dojo_ninjas bkila$ cd ..
+bkilas-MBP:apps bkila$ cd ..
+bkilas-MBP:newproject bkila$ cd ..
+bkilas-MBP:desktop bkila$ cd newproject/
+bkilas-MBP:newproject bkila$ python manage.py makemigrations
+Migrations for 'dojo_ninjas':
+  apps/dojo_ninjas/migrations/0001_initial.py:
+    - Create model Dojo
+    - Create model Ninja
+bkilas-MBP:newproject bkila$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_ninjas, sessions, users
+Running migrations:
+  Rendering model states... DONE
+  Applying dojo_ninjas.0001_initial... OK
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: from apps.dojo_ninjas.models import *
+
+In [2]: Dojo.objects.all()
+Out[2]: <QuerySet []>
+
+In [3]: Dojo.objects.create(name="CodingDojo Silicon Valley", city="Mountain Vie
+   ...: w", state="CA")
+Out[3]: <Dojo: Dojo object>
+
+In [4]: Dojo.objects.create(name="CodingDojo Seattle", city="Seattle", state="WA
+   ...: ")
+Out[4]: <Dojo: Dojo object>
+
+In [5]: Dojo.objects.create(name="CodingDojo New York", city="New York", state="
+   ...: NY")
+Out[5]: <Dojo: Dojo object>
+
+In [6]: Ninja.objects.create(first_name="Brian", last_name="Kang", dojo_id=2)
+Out[6]: <Ninja: Ninja object>
+
+In [7]: Ninja.objects.create(first_name="Donavan", last_name="An", dojo_id=2)
+Out[7]: <Ninja: Ninja object>
+
+In [8]: Ninja.objects.create(first_name="Mikey", last_name="Kim", dojo_id=2)
+Out[8]: <Ninja: Ninja object>
+
+In [9]: Ninja.objects.create(first_name="John", last_name="Doe", dojo_id=1)
+Out[9]: <Ninja: Ninja object>
+
+In [10]: Ninja.objects.create(first_name="Jane", last_name="Doe", dojo_id=1)
+Out[10]: <Ninja: Ninja object>
+
+In [11]: Ninja.objects.create(first_name="Pippy", last_name="Longstalking", dojo
+    ...: _id=1)
+Out[11]: <Ninja: Ninja object>
+
+In [12]: Ninja.objects.create(first_name="Hobo", last_name="Nick", dojo_id=3)
+Out[12]: <Ninja: Ninja object>
+
+In [13]: Ninja.objects.create(first_name="Hobo", last_name="Bob", dojo_id=3)
+Out[13]: <Ninja: Ninja object>
+
+In [14]: Ninja.objects.create(first_name="Hobo", last_name="Joe", dojo_id=3)
+Out[14]: <Ninja: Ninja object>
+
+In [15]: Dojo.objects.first().ninjas.all()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-15-46eefbc13139> in <module>()
+----> 1 Dojo.objects.first().ninjas.all()
+
+AttributeError: 'Dojo' object has no attribute 'ninjas'
+
+In [16]: Dojo.objects.first().ninja.all()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-16-009d0dad98f3> in <module>()
+----> 1 Dojo.objects.first().ninja.all()
+
+AttributeError: 'Dojo' object has no attribute 'ninja'
+
+In [17]: Ninjs.objects.first().dojo
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-17-51bf86ffa304> in <module>()
+----> 1 Ninjs.objects.first().dojo
+
+NameError: name 'Ninjs' is not defined
+
+In [18]: Ninja.objects.first().dojo
+Out[18]: <Dojo: Dojo object>
+
+In [19]: Ninja.objects.create(first_name="Hobo", last_name="Joe", bladh_id=3)
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-19-8f8dfa5e672b> in <module>()
+----> 1 Ninja.objects.create(first_name="Hobo", last_name="Joe", bladh_id=3)
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in create(self, **kwargs)
+    395         and returning the created object.
+    396         """
+--> 397         obj = self.model(**kwargs)
+    398         self._for_write = True
+    399         obj.save(force_insert=True, using=self.db)
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in __init__(self, *args, **kwargs)
+    553                     pass
+    554             if kwargs:
+--> 555                 raise TypeError("'%s' is an invalid keyword argument for this function" % list(kwargs)[0])
+    556         super(Model, self).__init__()
+    557         signals.post_init.send(sender=self.__class__, instance=self)
+
+TypeError: 'bladh_id' is an invalid keyword argument for this function
+
+In [20]: Ninja.objects.create(first_name="Hobo", last_name="Joe", wid=3)
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-20-bf0927705a7a> in <module>()
+----> 1 Ninja.objects.create(first_name="Hobo", last_name="Joe", wid=3)
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in create(self, **kwargs)
+    395         and returning the created object.
+    396         """
+--> 397         obj = self.model(**kwargs)
+    398         self._for_write = True
+    399         obj.save(force_insert=True, using=self.db)
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in __init__(self, *args, **kwargs)
+    553                     pass
+    554             if kwargs:
+--> 555                 raise TypeError("'%s' is an invalid keyword argument for this function" % list(kwargs)[0])
+    556         super(Model, self).__init__()
+    557         signals.post_init.send(sender=self.__class__, instance=self)
+
+TypeError: 'wid' is an invalid keyword argument for this function
+
+In [21]: Ninja.objects.create(first_name="Hobo", last_name="Joe", dojo="CodingDo
+    ...: jo New York")
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-21-1d3cb7ed26f6> in <module>()
+----> 1 Ninja.objects.create(first_name="Hobo", last_name="Joe", dojo="CodingDojo New York")
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in create(self, **kwargs)
+    395         and returning the created object.
+    396         """
+--> 397         obj = self.model(**kwargs)
+    398         self._for_write = True
+    399         obj.save(force_insert=True, using=self.db)
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in __init__(self, *args, **kwargs)
+    535                 # checked) by the RelatedObjectDescriptor.
+    536                 if rel_obj is not DEFERRED:
+--> 537                     setattr(self, field.name, rel_obj)
+    538             else:
+    539                 if val is not DEFERRED:
+
+/Library/Python/2.7/site-packages/django/db/models/fields/related_descriptors.pyc in __set__(self, instance, value)
+    209                     instance._meta.object_name,
+    210                     self.field.name,
+--> 211                     self.field.remote_field.model._meta.object_name,
+    212                 )
+    213             )
+
+ValueError: Cannot assign "'CodingDojo New York'": "Ninja.dojo" must be a "Dojo" instance.
+
+In [22]: Ninja.objects.create(first_name="Hobo", last_name="Joe", dojo=CodingDoj
+    ...: o New York)
+  File "<ipython-input-22-3abdd7d28e89>", line 1
+    Ninja.objects.create(first_name="Hobo", last_name="Joe", dojo=CodingDojo New York)
+                                                                               ^
+SyntaxError: invalid syntax
+
+
+
+[4]+  Stopped                 python manage.py shell
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: from apps.dojo_ninjas.models import *
+
+In [2]: Dojo.objects.first().ninja.all()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-2-009d0dad98f3> in <module>()
+----> 1 Dojo.objects.first().ninja.all()
+
+AttributeError: 'Dojo' object has no attribute 'ninja'
+
+In [3]: NY = Dojo.objects.last()
+
+In [4]: NY
+Out[4]: <Dojo: Dojo object>
+
+In [5]: NY.name
+Out[5]: u'CodingDojo New York'
+
+In [6]: Ninja.objects.create(first_name="Hobo", last_name="Joe", dojo=NY)
+Out[6]: <Ninja: Ninja object>
+
+In [7]: Dojo.objects.first().ninja.all()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-7-009d0dad98f3> in <module>()
+----> 1 Dojo.objects.first().ninja.all()
+
+AttributeError: 'Dojo' object has no attribute 'ninja'
+
+In [8]: Dojo.objects.last().all()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-8-593a0716ced3> in <module>()
+----> 1 Dojo.objects.last().all()
+
+AttributeError: 'Dojo' object has no attribute 'all'
+
+In [9]: Dojo.objects.first().Ninjas.all()
+Out[9]: <QuerySet [<Ninja: Ninja object>, <Ninja: Ninja object>, <Ninja: Ninja object>]>
+
+In [10]: x = Dojo.objects.first().Ninjas.all()
+
+In [11]: for i in x:
+    ...:     print i.name
+    ...:     
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-11-712051d103e3> in <module>()
+      1 for i in x:
+----> 2     print i.name
+      3 
+
+AttributeError: 'Ninja' object has no attribute 'name'
+
+In [12]: for i in x:
+    ...:     print i.first_name
+    ...:     
+    ...:     
+John
+Jane
+Pippy
+
+In [13]: Dojo.objects.first()
+Out[13]: <Dojo: Dojo object>
+
+In [14]: Dojo.objects.first().name
+Out[14]: u'CodingDojo Silicon Valley'
+
+In [15]: Dojo.objects.first().Ninjas.all()
+Out[15]: <QuerySet [<Ninja: Ninja object>, <Ninja: Ninja object>, <Ninja: Ninja object>]>
+
+In [16]: Dojo.objects.first().ninjas.all()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-16-46eefbc13139> in <module>()
+----> 1 Dojo.objects.first().ninjas.all()
+
+AttributeError: 'Dojo' object has no attribute 'ninjas'
+
+In [17]: Dojo.objects.get(id=1).delete()
+Out[17]: (4, {u'dojo_ninjas.Dojo': 1, u'dojo_ninjas.Ninja': 3})
+
+In [18]: Dojo.objects.get(id=2).delete()
+Out[18]: (4, {u'dojo_ninjas.Dojo': 1, u'dojo_ninjas.Ninja': 3})
+
+In [19]: Dojo.objects.get(id=3).delete()
+Out[19]: (5, {u'dojo_ninjas.Dojo': 1, u'dojo_ninjas.Ninja': 4})
+
+In [20]: Dojo.objects.get(id=3).delete()
+---------------------------------------------------------------------------
+DoesNotExist                              Traceback (most recent call last)
+<ipython-input-20-5a1240ebc11c> in <module>()
+----> 1 Dojo.objects.get(id=3).delete()
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in get(self, *args, **kwargs)
+    383             raise self.model.DoesNotExist(
+    384                 "%s matching query does not exist." %
+--> 385                 self.model._meta.object_name
+    386             )
+    387         raise self.model.MultipleObjectsReturned(
+
+DoesNotExist: Dojo matching query does not exist.
+
+In [21]: Dojo.objects.all()
+Out[21]: <QuerySet []>
+
+In [22]: Dojo.objects.create(name="CodingDojo New York", city="New York", state=
+    ...: "NY")
+Out[22]: <Dojo: Dojo object>
+
+In [23]: Dojo.objects.create(name="CodingDojo Seattle", city="Seattle", state="W
+    ...: A")
+Out[23]: <Dojo: Dojo object>
+
+In [24]: Dojo.objects.create(name="CodingDojo Silicon Valley", city="Mountain Vi
+    ...: ew", state="CA")
+Out[24]: <Dojo: Dojo object>
+
+In [25]: Dojo.objects.all()
+Out[25]: <QuerySet [<Dojo: Dojo object>, <Dojo: Dojo object>, <Dojo: Dojo object>]>
+
+In [26]: d = Dojo.objects.all()
+
+In [27]: for i in d:
+    ...:     d.name
+    ...:     
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-27-e6f82f0ee722> in <module>()
+      1 for i in d:
+----> 2     d.name
+      3 
+
+AttributeError: 'QuerySet' object has no attribute 'name'
+
+In [28]: for i in d:
+    ...:     i.name
+    ...:     
+    ...:     
+
+In [29]: 
+
+In [29]: 
+
+In [29]: d = Dojo.objects.all()
+
+In [30]: for i in d:
+    ...:     print i.name
+    ...:     
+CodingDojo New York
+CodingDojo Seattle
+CodingDojo Silicon Valley
+
+In [31]: Ninja.objects.create(first_name="Brian", last_name="Kang", dojo_id=2)
+Out[31]: <Ninja: Ninja object>
+
+In [32]: Ninja.objects.create(first_name="Brian", last_name="K", dojo_id=2)
+Out[32]: <Ninja: Ninja object>
+
+In [33]: Ninja.objects.create(first_name="Brian", last_name="P", dojo_id=2)
+Out[33]: <Ninja: Ninja object>
+
+In [34]: Ninja.objects.create(first_name="Hobo", last_name="P", dojo_id=1)
+Out[34]: <Ninja: Ninja object>
+
+In [35]: Ninja.objects.create(first_name="Hobo", last_name="Q", dojo_id=1)
+Out[35]: <Ninja: Ninja object>
+
+In [36]: Ninja.objects.create(first_name="Hobo", last_name="K", dojo_id=1)
+Out[36]: <Ninja: Ninja object>
+
+In [37]: Ninja.objects.create(first_name="Juan", last_name="K", dojo_id=3)
+Out[37]: <Ninja: Ninja object>
+
+In [38]: Ninja.objects.create(first_name="Juan", last_name="L", dojo_id=3)
+Out[38]: <Ninja: Ninja object>
+
+In [39]: Ninja.objects.create(first_name="Juan", last_name="A", dojo_id=3)
+Out[39]: <Ninja: Ninja object>
+
+In [40]: Dojo.objects.first().Ninjas.all()
+Out[40]: <QuerySet []>
+
+In [41]: Ninja.objects.create(first_name="Juan", last_name="A", dojo_id=4)
+Out[41]: <Ninja: Ninja object>
+
+In [42]: Dojo.objects.first().Ninjas.all()
+Out[42]: <QuerySet [<Ninja: Ninja object>]>
+
+In [43]: Ninja.objects.create(first_name="Hobo", last_name="P", dojo_id=4)
+Out[43]: <Ninja: Ninja object>
+
+In [44]: Ninja.objects.create(first_name="Hobo", last_name="Q", dojo_id=4)
+Out[44]: <Ninja: Ninja object>
+
+In [45]: Ninja.objects.create(first_name="Brian", last_name="Kang", dojo_id=5)
+Out[45]: <Ninja: Ninja object>
+
+In [46]: Ninja.objects.create(first_name="Brian", last_name="K", dojo_id=5)
+Out[46]: <Ninja: Ninja object>
+
+In [47]: Ninja.objects.create(first_name="Brian", last_name="P", dojo_id=5)
+Out[47]: <Ninja: Ninja object>
+
+In [48]: Ninja.objects.create(first_name="Hobo", last_name="K", dojo_id=1)
+Out[48]: <Ninja: Ninja object>
+
+In [49]: Ninja.objects.create(first_name="Hobo", last_name="K", dojo_id=6)
+Out[49]: <Ninja: Ninja object>
+
+In [50]: Ninja.objects.create(first_name="Hobo", last_name="L", dojo_id=6)
+Out[50]: <Ninja: Ninja object>
+
+In [51]: Ninja.objects.create(first_name="Hobo", last_name="H", dojo_id=6)
+Out[51]: <Ninja: Ninja object>
+
+In [52]: Dojo.objects.first().Ninjas.all()
+Out[52]: <QuerySet [<Ninja: Ninja object>, <Ninja: Ninja object>, <Ninja: Ninja object>]>
+
+In [53]: Dojo.objects.last().Ninjas.all()
+Out[53]: <QuerySet [<Ninja: Ninja object>, <Ninja: Ninja object>, <Ninja: Ninja object>]>
+
+In [54]: Dojo.objects.get(id=5).Ninjas.all()
+Out[54]: <QuerySet [<Ninja: Ninja object>, <Ninja: Ninja object>, <Ninja: Ninja object>]>
+
+
+[5]+  Stopped                 python manage.py shell
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: from apps.dojo_ninjas.models import *
+
+In [2]: b = Dojo.objects.first()
+
+In [3]: b.name
+Out[3]: u'CodingDojo New York'
+
+In [4]: b.desc = "hiiiii"
+
+In [5]: b.desc
+Out[5]: 'hiiiii'
+
+In [6]: a = Dojo.objects.get(id=6)
+
+In [7]: for i in a:
+   ...:     print i
+   ...:     
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-7-d7d2d277f2af> in <module>()
+----> 1 for i in a:
+      2     print i
+      3 
+
+TypeError: 'Dojo' object is not iterable
+
+In [8]: a.name
+Out[8]: u'CodingDojo Silicon Valley'
+
+In [9]: a.desc
+Out[9]: django.db.models.fields.TextField
+
+In [10]: a.desc = "yooo"
+
+In [11]: a.desc
+Out[11]: 'yooo'
+
+In [12]: 
