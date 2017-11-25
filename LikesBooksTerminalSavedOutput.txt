@@ -1,0 +1,1139 @@
+In [39]: one.author
+Out[39]: <Author: Mike Q mike@cd.com>
+
+In [40]: two = Book.objects.get(id=2)
+
+In [41]: two
+Out[41]: <Book: Java hi>
+
+In [42]: two.author
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-42-4b65de81f126> in <module>()
+----> 1 two.author
+
+AttributeError: 'Book' object has no attribute 'author'
+
+In [43]: two.author = Author.objects.get(id=2)
+
+In [44]: two.author
+Out[44]: <Author: Speros  >
+
+In [45]: first3 = Book.objects.all()[:3]
+
+In [46]: first3
+Out[46]: <QuerySet [<Book: C Sharp hi>, <Book: Java hi>, <Book: Python hi>]>
+
+In [47]: first3.author = Author.objects.get(id=2)
+
+In [48]: first3.author = Author.objects.get(id=3)
+
+In [49]: two.author
+Out[49]: <Author: Speros  >
+
+In [50]: first3.author = Author.objects.get(id=3)
+
+In [51]: first3.save()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-51-e43198fd90ed> in <module>()
+----> 1 first3.save()
+
+AttributeError: 'QuerySet' object has no attribute 'save'
+
+In [52]: books = Book.objects.all()
+
+In [53]: books
+Out[53]: <QuerySet [<Book: C Sharp hi>, <Book: Java hi>, <Book: Python hi>, <Book: PHP hi>, <Book: Ruby hi>]>
+
+In [54]: for i in books[0:4]:
+    ...:     i.author = Author.objects.get(id=3)
+    ...:     
+
+In [55]: two.author
+Out[55]: <Author: Speros  >
+
+In [56]: two = Book.objects.get(id=2)
+
+In [57]: two
+Out[57]: <Book: Java hi>
+
+In [58]: two.author
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-58-4b65de81f126> in <module>()
+----> 1 two.author
+
+AttributeError: 'Book' object has no attribute 'author'
+
+In [59]: for i in books[0:4]:
+    ...:     i.author = Author.objects.get(id=3)
+    ...:     
+
+In [60]: 
+
+In [60]: two.author
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-60-4b65de81f126> in <module>()
+----> 1 two.author
+
+AttributeError: 'Book' object has no attribute 'author'
+
+In [61]: Book.objects.get(id=1).author
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-61-286c6a99014a> in <module>()
+----> 1 Book.objects.get(id=1).author
+
+AttributeError: 'Book' object has no attribute 'author'
+
+In [62]: one = Book.objects.get(id=1)
+
+In [63]: speros = Author.objects.get(id=2)
+
+In [64]: speros
+Out[64]: <Author: Speros  >
+
+In [65]: one.author = speros
+
+In [66]: one.author
+Out[66]: <Author: Speros  >
+
+In [67]: Book.objects.get(id=1).author
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-67-286c6a99014a> in <module>()
+----> 1 Book.objects.get(id=1).author
+
+AttributeError: 'Book' object has no attribute 'author'
+
+In [68]: Jay = Author.objects.get(id=5)
+
+In [69]: Jay
+Out[69]: <Author: Jay  >
+
+In [70]: Books = Book.objects.all()
+
+In [71]: Books
+Out[71]: <QuerySet [<Book: C Sharp hi>, <Book: Java hi>, <Book: Python hi>, <Book: PHP hi>, <Book: Ruby hi>]>
+
+In [72]: for i in Books[0:4]:
+    ...:     i.author = Jay
+    ...:     
+
+In [73]: book3 = Book.objects.get(id=3)
+
+In [74]: book3
+Out[74]: <Book: Python hi>
+
+In [75]: book3.author
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-75-587a05487b6c> in <module>()
+----> 1 book3.author
+
+AttributeError: 'Book' object has no attribute 'author'
+
+In [76]: one = Book.objects.get(id=1)
+
+In [77]: two = Book.objects.get(id=2)
+
+In [78]: three = Book.objects.get(id=3)
+
+In [79]: third = Author.objects.get(id=3)
+
+In [80]: one.author = third
+
+In [81]: two.author = third
+
+In [82]: three.author = third
+
+In [83]: one.author
+Out[83]: <Author: John  >
+
+In [84]: one.save()
+
+In [85]: two.save()
+
+In [86]: three.save()
+
+In [87]: four = Book.objects.get(id=4)
+
+In [88]: four.author = third
+
+In [89]: four.save()
+
+In [90]: four.author
+Out[90]: <Author: John  >
+
+In [91]: four.author = speros
+
+In [92]: four.author
+Out[92]: <Author: Speros  >
+
+In [93]: four.author.add(third)
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-93-4f097508e25f> in <module>()
+----> 1 four.author.add(third)
+
+AttributeError: 'Author' object has no attribute 'add'
+
+In [94]: Book.objects.all().authors
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-94-50d2d185a92e> in <module>()
+----> 1 Book.objects.all().authors
+
+AttributeError: 'QuerySet' object has no attribute 'authors'
+
+In [95]: four.authors
+Out[95]: <django.db.models.fields.related_descriptors.ManyRelatedManager at 0x111ec4b50>
+
+In [96]: mike = Author.objects.get(id=1)
+
+In [97]: book1 = Book.objects.get(id=1)
+
+In [98]: book2 = Book.objects.get(id=2)
+
+In [99]: book1.authors.add(mike)
+
+In [100]: book1.authors.add(speros)
+
+In [101]: book1.authors
+Out[101]: <django.db.models.fields.related_descriptors.ManyRelatedManager at 0x111e92110>
+
+In [102]: book1.save()
+
+In [103]: book1.authors
+Out[103]: <django.db.models.fields.related_descriptors.ManyRelatedManager at 0x111f26e50>
+
+In [104]: book1authors = book1.authors
+
+In [105]: book1authors
+Out[105]: <django.db.models.fields.related_descriptors.ManyRelatedManager at 0x111e94310>
+
+In [106]: for i in book1authors:
+     ...:     print i
+     ...:     
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-106-dd8accad4833> in <module>()
+----> 1 for i in book1authors:
+      2     print i
+      3 
+
+TypeError: 'ManyRelatedManager' object is not iterable
+
+In [107]: book1.authors.all()
+     ...: 
+     ...:     
+Out[107]: <QuerySet [<Author: Mike Q mike@cd.com>, <Author: Speros  >]>
+
+In [108]: book1authors = book1.authors.all()
+
+In [109]: for i in book1authors:
+     ...:     print i
+     ...:     
+Author object
+Author object
+
+In [110]: book1
+Out[110]: <Book: C Sharp hi>
+
+In [111]: book2
+Out[111]: <Book: Java hi>
+
+In [112]: book3
+Out[112]: <Book: Python hi>
+
+In [113]: book4
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-113-a5f14fd5fb26> in <module>()
+----> 1 book4
+
+NameError: name 'book4' is not defined
+
+In [114]: book4 = Book.objects.get(id=4)
+
+In [115]: book4
+Out[115]: <Book: PHP hi>
+
+In [116]: book5 = Book.objects.get(id=5)
+
+In [117]: book5
+Out[117]: <Book: Ruby hi>
+
+In [118]: jadee = Author.objects.get(id=4)
+
+In [119]: jadee
+Out[119]: <Author: Jadee  >
+
+In [120]: book1.authors.add(jadee)
+
+In [121]: book2.authors.add(jadee)
+
+In [122]: book3.authors.add(jadee)
+
+In [123]: book4.authors.add(jadee)
+
+In [124]: book5.authors.add(jadee)
+
+In [125]: book5.authors.all()
+Out[125]: <QuerySet [<Author: Jadee  >]>
+
+In [126]: book3.authors.add(speros)
+
+In [127]: book3.authors.add(mark)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-127-4773e2edf7f5> in <module>()
+----> 1 book3.authors.add(mark)
+
+NameError: name 'mark' is not defined
+
+In [128]: book3.authors.add(mike)
+
+In [129]: book3.authors.all()
+Out[129]: <QuerySet [<Author: Jadee  >, <Author: Speros  >, <Author: Mike Q mike@cd.com>]>
+
+In [130]: book3.authors.remove(Jadee)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-130-bccb4cf39637> in <module>()
+----> 1 book3.authors.remove(Jadee)
+
+NameError: name 'Jadee' is not defined
+
+In [131]: book3.authors.remove(jadee)
+
+In [132]: book3.authors.all()
+Out[132]: <QuerySet [<Author: Speros  >, <Author: Mike Q mike@cd.com>]>
+
+In [133]: book3.authors.add(Author.objects.get(id=5))
+
+In [134]: book3.authors.all()
+Out[134]: <QuerySet [<Author: Speros  >, <Author: Mike Q mike@cd.com>, <Author: Jay  >]>
+
+In [135]: k = Author.objects.get(id=5)
+
+In [136]: k
+Out[136]: <Author: Jay  >
+
+In [137]: k = "Ketul"
+
+In [138]: k.save()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-138-38f4f919050f> in <module>()
+----> 1 k.save()
+
+AttributeError: 'str' object has no attribute 'save'
+
+In [139]: k
+Out[139]: 'Ketul'
+
+In [140]: book3.authors.all()
+Out[140]: <QuerySet [<Author: Speros  >, <Author: Mike Q mike@cd.com>, <Author: Jay  >]>
+
+In [141]: Author.objects.get(id=5)
+Out[141]: <Author: Jay  >
+
+In [142]: k
+Out[142]: 'Ketul'
+
+In [143]: k = Author.objects.get(id=5)
+
+In [144]: k
+Out[144]: <Author: Jay  >
+
+In [145]: k.first_name = "Ketul"
+
+In [146]: k.save()
+
+In [147]: book3.authors.all()
+Out[147]: <QuerySet [<Author: Speros  >, <Author: Mike Q mike@cd.com>, <Author: Ketul  >]>
+
+In [148]: k.books.all()
+Out[148]: <QuerySet [<Book: Python hi>]>
+
+In [149]: speros.books.all()
+Out[149]: <QuerySet [<Book: C Sharp hi>, <Book: Python hi>]>
+
+In [150]: mike.books.all()
+Out[150]: <QuerySet [<Book: C Sharp hi>, <Book: Python hi>]>
+
+In [151]: book2.authors.add(speros)
+
+In [152]: speros.books.all()
+Out[152]: <QuerySet [<Book: C Sharp hi>, <Book: Java hi>, <Book: Python hi>]>
+
+
+[9]+  Stopped                 python manage.py shell
+bkilas-MBP:newproject bkila$ cd ..
+bkilas-MBP:desktop bkila$ cd newproject
+bkilas-MBP:newproject bkila$ cd apps
+bkilas-MBP:apps bkila$ django-admin startapp likes_books
+bkilas-MBP:apps bkila$ cd likes_books
+bkilas-MBP:likes_books bkila$ touch urls.py
+bkilas-MBP:likes_books bkila$ mkdir templates
+bkilas-MBP:likes_books bkila$ cd te
+-bash: cd: te: No such file or directory
+bkilas-MBP:likes_books bkila$ cd templates/
+bkilas-MBP:templates bkila$ mkdir likes_books
+bkilas-MBP:templates bkila$ cd likes_books/
+bkilas-MBP:likes_books bkila$ touch index.html
+bkilas-MBP:likes_books bkila$ cd ..
+bkilas-MBP:templates bkila$ cd ..
+bkilas-MBP:likes_books bkila$ cd ..
+bkilas-MBP:apps bkila$ cd ..
+bkilas-MBP:newproject bkila$ python manage.py makemigrations
+Migrations for 'likes_books':
+  apps/likes_books/migrations/0001_initial.py:
+    - Create model Book
+    - Create model User
+    - Add field liked_users to book
+    - Add field uploader to book
+bkilas-MBP:newproject bkila$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, book_authors, contenttypes, dojo_ninjas, likes_books, sessions, users
+Running migrations:
+  Rendering model states... DONE
+  Applying likes_books.0001_initial... OK
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: from apps.likes_books.models import *
+
+In [2]: user1 = User.objects.create(first_name="Brian", last_name="Kang", email=
+   ...: "brian@me.com")
+
+In [3]: user1
+Out[3]: <User: User object>
+
+
+[10]+  Stopped                 python manage.py shell
+bkilas-MBP:newproject bkila$ python manage.py makemigrations
+No changes detected
+bkilas-MBP:newproject bkila$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, book_authors, contenttypes, dojo_ninjas, likes_books, sessions, users
+Running migrations:
+  No migrations to apply.
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: user1
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-1-37f5feaeebf0> in <module>()
+----> 1 user1
+
+NameError: name 'user1' is not defined
+
+In [2]: user1 = User.object.get(id=1)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-2-868d1a08f1c6> in <module>()
+----> 1 user1 = User.object.get(id=1)
+
+NameError: name 'User' is not defined
+
+In [3]: User.objects.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-3-84a4882c08e9> in <module>()
+----> 1 User.objects.all()
+
+NameError: name 'User' is not defined
+
+In [4]: 
+
+
+[11]+  Stopped                 python manage.py shell
+bkilas-MBP:newproject bkila$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, book_authors, contenttypes, dojo_ninjas, likes_books, sessions, users
+Running migrations:
+  No migrations to apply.
+bkilas-MBP:newproject bkila$ python manage.py makemigrations
+No changes detected
+bkilas-MBP:newproject bkila$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, book_authors, contenttypes, dojo_ninjas, likes_books, sessions, users
+Running migrations:
+  No migrations to apply.
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: User.objects.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-1-84a4882c08e9> in <module>()
+----> 1 User.objects.all()
+
+NameError: name 'User' is not defined
+
+In [2]: from apps.likes_books.models import *
+
+In [3]: User.objects.all()
+Out[3]: <QuerySet []>
+
+In [4]: user1 = User.objects.create(first_name="Brian", last_name="Kang", email=
+   ...: "brian@me.com")
+
+In [5]: user1
+Out[5]: <User: Brian Kang brian@me.com>
+
+In [6]: user2 = User.objects.create(first_name="Brian", last_name="Pang", email=
+   ...: "b@me.com")
+
+In [7]: user3 = User.objects.create(first_name="Brian", last_name="Cang", email=
+   ...: "c@me.com")
+
+In [8]:                                                                         
+                   
+  [Restored Nov 13, 2017 at 6:39:40 PM]
+Last login: Mon Nov 13 18:39:27 on console
+bkilas-MBP:newproject bkila$ python manage.py shell
+Python 2.7.10 (default, Jul 15 2017, 17:16:57) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: user1
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-1-37f5feaeebf0> in <module>()
+----> 1 user1
+
+NameError: name 'user1' is not defined
+
+In [2]: User.objects.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-2-84a4882c08e9> in <module>()
+----> 1 User.objects.all()
+
+NameError: name 'User' is not defined
+
+In [3]: from apps.likes_books.models import *
+
+In [4]: User.objects.all()
+Out[4]: <QuerySet [<User: Brian Kang brian@me.com>, <User: Brian Pang b@me.com>, <User: Brian Cang c@me.com>]>
+
+In [5]: user1
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-5-37f5feaeebf0> in <module>()
+----> 1 user1
+
+NameError: name 'user1' is not defined
+
+In [6]: user1 = User.objects.get(id=1)
+---------------------------------------------------------------------------
+DoesNotExist                              Traceback (most recent call last)
+<ipython-input-6-f57a0c09d6fc> in <module>()
+----> 1 user1 = User.objects.get(id=1)
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in get(self, *args, **kwargs)
+    383             raise self.model.DoesNotExist(
+    384                 "%s matching query does not exist." %
+--> 385                 self.model._meta.object_name
+    386             )
+    387         raise self.model.MultipleObjectsReturned(
+
+DoesNotExist: User matching query does not exist.
+
+In [7]: User.objects.get(id=1)
+---------------------------------------------------------------------------
+DoesNotExist                              Traceback (most recent call last)
+<ipython-input-7-bed4b1bc0ae6> in <module>()
+----> 1 User.objects.get(id=1)
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in get(self, *args, **kwargs)
+    383             raise self.model.DoesNotExist(
+    384                 "%s matching query does not exist." %
+--> 385                 self.model._meta.object_name
+    386             )
+    387         raise self.model.MultipleObjectsReturned(
+
+DoesNotExist: User matching query does not exist.
+
+In [8]: User.objects.all()
+Out[8]: <QuerySet [<User: Brian Kang brian@me.com>, <User: Brian Pang b@me.com>, <User: Brian Cang c@me.com>]>
+
+In [9]: User.objects.get(id=1)
+---------------------------------------------------------------------------
+DoesNotExist                              Traceback (most recent call last)
+<ipython-input-9-bed4b1bc0ae6> in <module>()
+----> 1 User.objects.get(id=1)
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in get(self, *args, **kwargs)
+    383             raise self.model.DoesNotExist(
+    384                 "%s matching query does not exist." %
+--> 385                 self.model._meta.object_name
+    386             )
+    387         raise self.model.MultipleObjectsReturned(
+
+DoesNotExist: User matching query does not exist.
+
+In [10]: User.objects.get(id=1)
+---------------------------------------------------------------------------
+DoesNotExist                              Traceback (most recent call last)
+<ipython-input-10-bed4b1bc0ae6> in <module>()
+----> 1 User.objects.get(id=1)
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in get(self, *args, **kwargs)
+    383             raise self.model.DoesNotExist(
+    384                 "%s matching query does not exist." %
+--> 385                 self.model._meta.object_name
+    386             )
+    387         raise self.model.MultipleObjectsReturned(
+
+DoesNotExist: User matching query does not exist.
+
+In [11]: User.objects.get(id=1)
+Out[11]: <User: Brian Kang brian@me.com>
+
+In [12]: user1 = User.objects.get(id=1)
+
+In [13]: user2 = User.objects.get(id=2)
+
+In [14]: user4 = User.objects.get(id=3)
+
+In [15]: user3 = User.objects.get(id=3)
+
+In [16]: user3
+Out[16]: <User: Brian Cang c@me.com>
+
+In [17]: book1 = Book.objects.create(name="First Book")
+---------------------------------------------------------------------------
+IntegrityError                            Traceback (most recent call last)
+<ipython-input-17-1a5fcf989208> in <module>()
+----> 1 book1 = Book.objects.create(name="First Book")
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in create(self, **kwargs)
+    397         obj = self.model(**kwargs)
+    398         self._for_write = True
+--> 399         obj.save(force_insert=True, using=self.db)
+    400         return obj
+    401 
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in save(self, force_insert, force_update, using, update_fields)
+    794 
+    795         self.save_base(using=using, force_insert=force_insert,
+--> 796                        force_update=force_update, update_fields=update_fields)
+    797     save.alters_data = True
+    798 
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in save_base(self, raw, force_insert, force_update, using, update_fields)
+    822             if not raw:
+    823                 self._save_parents(cls, using, update_fields)
+--> 824             updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+    825         # Store the database on which the object was saved
+    826         self._state.db = using
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in _save_table(self, raw, cls, force_insert, force_update, using, update_fields)
+    906 
+    907             update_pk = bool(meta.has_auto_field and not pk_set)
+--> 908             result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+    909             if update_pk:
+    910                 setattr(self, meta.pk.attname, result)
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in _do_insert(self, manager, using, fields, update_pk, raw)
+    945         """
+    946         return manager._insert([self], fields=fields, return_id=update_pk,
+--> 947                                using=using, raw=raw)
+    948 
+    949     def delete(self, using=None, keep_parents=False):
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in _insert(self, objs, fields, return_id, raw, using)
+   1041         query = sql.InsertQuery(self.model)
+   1042         query.insert_values(fields, objs, raw=raw)
+-> 1043         return query.get_compiler(using=using).execute_sql(return_id)
+   1044     _insert.alters_data = True
+   1045     _insert.queryset_only = False
+
+/Library/Python/2.7/site-packages/django/db/models/sql/compiler.pyc in execute_sql(self, return_id)
+   1052         with self.connection.cursor() as cursor:
+   1053             for sql, params in self.as_sql():
+-> 1054                 cursor.execute(sql, params)
+   1055             if not (return_id and cursor):
+   1056                 return
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     77         start = time()
+     78         try:
+---> 79             return super(CursorDebugWrapper, self).execute(sql, params)
+     80         finally:
+     81             stop = time()
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     62                 return self.cursor.execute(sql)
+     63             else:
+---> 64                 return self.cursor.execute(sql, params)
+     65 
+     66     def executemany(self, sql, param_list):
+
+/Library/Python/2.7/site-packages/django/db/utils.pyc in __exit__(self, exc_type, exc_value, traceback)
+     92                 if dj_exc_type not in (DataError, IntegrityError):
+     93                     self.wrapper.errors_occurred = True
+---> 94                 six.reraise(dj_exc_type, dj_exc_value, traceback)
+     95 
+     96     def __call__(self, func):
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     62                 return self.cursor.execute(sql)
+     63             else:
+---> 64                 return self.cursor.execute(sql, params)
+     65 
+     66     def executemany(self, sql, param_list):
+
+/Library/Python/2.7/site-packages/django/db/backends/sqlite3/base.pyc in execute(self, query, params)
+    335             return Database.Cursor.execute(self, query)
+    336         query = self.convert_query(query)
+--> 337         return Database.Cursor.execute(self, query, params)
+    338 
+    339     def executemany(self, query, param_list):
+
+IntegrityError: NOT NULL constraint failed: likes_books_book.uploader_id
+
+In [18]: book1 = Book.objects.create(name="First Book", desc="123")
+---------------------------------------------------------------------------
+IntegrityError                            Traceback (most recent call last)
+<ipython-input-18-6c364da07148> in <module>()
+----> 1 book1 = Book.objects.create(name="First Book", desc="123")
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in create(self, **kwargs)
+    397         obj = self.model(**kwargs)
+    398         self._for_write = True
+--> 399         obj.save(force_insert=True, using=self.db)
+    400         return obj
+    401 
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in save(self, force_insert, force_update, using, update_fields)
+    794 
+    795         self.save_base(using=using, force_insert=force_insert,
+--> 796                        force_update=force_update, update_fields=update_fields)
+    797     save.alters_data = True
+    798 
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in save_base(self, raw, force_insert, force_update, using, update_fields)
+    822             if not raw:
+    823                 self._save_parents(cls, using, update_fields)
+--> 824             updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+    825         # Store the database on which the object was saved
+    826         self._state.db = using
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in _save_table(self, raw, cls, force_insert, force_update, using, update_fields)
+    906 
+    907             update_pk = bool(meta.has_auto_field and not pk_set)
+--> 908             result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+    909             if update_pk:
+    910                 setattr(self, meta.pk.attname, result)
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in _do_insert(self, manager, using, fields, update_pk, raw)
+    945         """
+    946         return manager._insert([self], fields=fields, return_id=update_pk,
+--> 947                                using=using, raw=raw)
+    948 
+    949     def delete(self, using=None, keep_parents=False):
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in _insert(self, objs, fields, return_id, raw, using)
+   1041         query = sql.InsertQuery(self.model)
+   1042         query.insert_values(fields, objs, raw=raw)
+-> 1043         return query.get_compiler(using=using).execute_sql(return_id)
+   1044     _insert.alters_data = True
+   1045     _insert.queryset_only = False
+
+/Library/Python/2.7/site-packages/django/db/models/sql/compiler.pyc in execute_sql(self, return_id)
+   1052         with self.connection.cursor() as cursor:
+   1053             for sql, params in self.as_sql():
+-> 1054                 cursor.execute(sql, params)
+   1055             if not (return_id and cursor):
+   1056                 return
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     77         start = time()
+     78         try:
+---> 79             return super(CursorDebugWrapper, self).execute(sql, params)
+     80         finally:
+     81             stop = time()
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     62                 return self.cursor.execute(sql)
+     63             else:
+---> 64                 return self.cursor.execute(sql, params)
+     65 
+     66     def executemany(self, sql, param_list):
+
+/Library/Python/2.7/site-packages/django/db/utils.pyc in __exit__(self, exc_type, exc_value, traceback)
+     92                 if dj_exc_type not in (DataError, IntegrityError):
+     93                     self.wrapper.errors_occurred = True
+---> 94                 six.reraise(dj_exc_type, dj_exc_value, traceback)
+     95 
+     96     def __call__(self, func):
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     62                 return self.cursor.execute(sql)
+     63             else:
+---> 64                 return self.cursor.execute(sql, params)
+     65 
+     66     def executemany(self, sql, param_list):
+
+/Library/Python/2.7/site-packages/django/db/backends/sqlite3/base.pyc in execute(self, query, params)
+    335             return Database.Cursor.execute(self, query)
+    336         query = self.convert_query(query)
+--> 337         return Database.Cursor.execute(self, query, params)
+    338 
+    339     def executemany(self, query, param_list):
+
+IntegrityError: NOT NULL constraint failed: likes_books_book.uploader_id
+
+In [19]: book1 = Book.objects.create(name="First Book", desc="123")
+---------------------------------------------------------------------------
+IntegrityError                            Traceback (most recent call last)
+<ipython-input-19-6c364da07148> in <module>()
+----> 1 book1 = Book.objects.create(name="First Book", desc="123")
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in create(self, **kwargs)
+    397         obj = self.model(**kwargs)
+    398         self._for_write = True
+--> 399         obj.save(force_insert=True, using=self.db)
+    400         return obj
+    401 
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in save(self, force_insert, force_update, using, update_fields)
+    794 
+    795         self.save_base(using=using, force_insert=force_insert,
+--> 796                        force_update=force_update, update_fields=update_fields)
+    797     save.alters_data = True
+    798 
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in save_base(self, raw, force_insert, force_update, using, update_fields)
+    822             if not raw:
+    823                 self._save_parents(cls, using, update_fields)
+--> 824             updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+    825         # Store the database on which the object was saved
+    826         self._state.db = using
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in _save_table(self, raw, cls, force_insert, force_update, using, update_fields)
+    906 
+    907             update_pk = bool(meta.has_auto_field and not pk_set)
+--> 908             result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+    909             if update_pk:
+    910                 setattr(self, meta.pk.attname, result)
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in _do_insert(self, manager, using, fields, update_pk, raw)
+    945         """
+    946         return manager._insert([self], fields=fields, return_id=update_pk,
+--> 947                                using=using, raw=raw)
+    948 
+    949     def delete(self, using=None, keep_parents=False):
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in _insert(self, objs, fields, return_id, raw, using)
+   1041         query = sql.InsertQuery(self.model)
+   1042         query.insert_values(fields, objs, raw=raw)
+-> 1043         return query.get_compiler(using=using).execute_sql(return_id)
+   1044     _insert.alters_data = True
+   1045     _insert.queryset_only = False
+
+/Library/Python/2.7/site-packages/django/db/models/sql/compiler.pyc in execute_sql(self, return_id)
+   1052         with self.connection.cursor() as cursor:
+   1053             for sql, params in self.as_sql():
+-> 1054                 cursor.execute(sql, params)
+   1055             if not (return_id and cursor):
+   1056                 return
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     77         start = time()
+     78         try:
+---> 79             return super(CursorDebugWrapper, self).execute(sql, params)
+     80         finally:
+     81             stop = time()
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     62                 return self.cursor.execute(sql)
+     63             else:
+---> 64                 return self.cursor.execute(sql, params)
+     65 
+     66     def executemany(self, sql, param_list):
+
+/Library/Python/2.7/site-packages/django/db/utils.pyc in __exit__(self, exc_type, exc_value, traceback)
+     92                 if dj_exc_type not in (DataError, IntegrityError):
+     93                     self.wrapper.errors_occurred = True
+---> 94                 six.reraise(dj_exc_type, dj_exc_value, traceback)
+     95 
+     96     def __call__(self, func):
+
+/Library/Python/2.7/site-packages/django/db/backends/utils.pyc in execute(self, sql, params)
+     62                 return self.cursor.execute(sql)
+     63             else:
+---> 64                 return self.cursor.execute(sql, params)
+     65 
+     66     def executemany(self, sql, param_list):
+
+/Library/Python/2.7/site-packages/django/db/backends/sqlite3/base.pyc in execute(self, query, params)
+    335             return Database.Cursor.execute(self, query)
+    336         query = self.convert_query(query)
+--> 337         return Database.Cursor.execute(self, query, params)
+    338 
+    339     def executemany(self, query, param_list):
+
+IntegrityError: NOT NULL constraint failed: likes_books_book.uploader_id
+
+In [20]: book1 = Book.objects.create(name="First Book", desc="123", uploader="us
+    ...: er1"
+    ...: 
+    ...: 
+    ...: 
+    ...: 
+    ...: 
+    ...: )
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-20-b7ae55c9d5aa> in <module>()
+----> 1 book1 = Book.objects.create(name="First Book", desc="123", uploader="user1"
+      2 
+      3 
+      4 
+      5 
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in create(self, **kwargs)
+    395         and returning the created object.
+    396         """
+--> 397         obj = self.model(**kwargs)
+    398         self._for_write = True
+    399         obj.save(force_insert=True, using=self.db)
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in __init__(self, *args, **kwargs)
+    535                 # checked) by the RelatedObjectDescriptor.
+    536                 if rel_obj is not DEFERRED:
+--> 537                     setattr(self, field.name, rel_obj)
+    538             else:
+    539                 if val is not DEFERRED:
+
+/Library/Python/2.7/site-packages/django/db/models/fields/related_descriptors.pyc in __set__(self, instance, value)
+    209                     instance._meta.object_name,
+    210                     self.field.name,
+--> 211                     self.field.remote_field.model._meta.object_name,
+    212                 )
+    213             )
+
+ValueError: Cannot assign "'user1'": "Book.uploader" must be a "User" instance.
+
+In [21]: book1 = Book.objects.create(name="First Book", desc="123", uploader="us
+    ...: er1")
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-21-ac8dbd9dab37> in <module>()
+----> 1 book1 = Book.objects.create(name="First Book", desc="123", uploader="user1")
+
+/Library/Python/2.7/site-packages/django/db/models/manager.pyc in manager_method(self, *args, **kwargs)
+     83         def create_method(name, method):
+     84             def manager_method(self, *args, **kwargs):
+---> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
+     86             manager_method.__name__ = method.__name__
+     87             manager_method.__doc__ = method.__doc__
+
+/Library/Python/2.7/site-packages/django/db/models/query.pyc in create(self, **kwargs)
+    395         and returning the created object.
+    396         """
+--> 397         obj = self.model(**kwargs)
+    398         self._for_write = True
+    399         obj.save(force_insert=True, using=self.db)
+
+/Library/Python/2.7/site-packages/django/db/models/base.pyc in __init__(self, *args, **kwargs)
+    535                 # checked) by the RelatedObjectDescriptor.
+    536                 if rel_obj is not DEFERRED:
+--> 537                     setattr(self, field.name, rel_obj)
+    538             else:
+    539                 if val is not DEFERRED:
+
+/Library/Python/2.7/site-packages/django/db/models/fields/related_descriptors.pyc in __set__(self, instance, value)
+    209                     instance._meta.object_name,
+    210                     self.field.name,
+--> 211                     self.field.remote_field.model._meta.object_name,
+    212                 )
+    213             )
+
+ValueError: Cannot assign "'user1'": "Book.uploader" must be a "User" instance.
+
+In [22]: book1 = Book.objects.create(name="First Book", desc="123", uploader=use
+    ...: r1)
+
+In [23]: book1
+Out[23]: <Book: First Book 123>
+
+In [24]: book1.uploader.all()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-24-61c2514abeb2> in <module>()
+----> 1 book1.uploader.all()
+
+AttributeError: 'User' object has no attribute 'all'
+
+In [25]: book1.uploader
+Out[25]: <User: Brian Kang brian@me.com>
+
+In [26]: book2 = Book.objects.create(name="Second Book", desc="123", uploader=us
+    ...: er1)
+
+In [27]: book3 = Book.objects.create(name="Second Book", desc="123", uploader=us
+    ...: er2)
+
+In [28]: book4 = Book.objects.create(name="Second Book", desc="123", uploader=us
+    ...: er2)
+
+In [29]: book5 = Book.objects.create(name="Blah Book", desc="123", uploader=user
+    ...: 3)
+
+In [30]: book6 = Book.objects.create(name="Blahhh Book", desc="123", uploader=us
+    ...: er3)
+
+In [31]: book6.liked_users.add(user1)
+
+In [32]: book1.liked_users.add(user1)
+
+In [33]: book1.liked_users.add(user2)
+
+In [34]: book3.liked_users.add(user2)
+
+In [35]: book1.liked_users.add(user3)
+
+In [36]: book2.liked_users.add(user3)
+
+In [37]: book3.liked_users.add(user3)
+
+In [38]: book4.liked_users.add(user3)
+
+In [39]: book5.liked_users.add(user3)
+
+In [40]: book6.liked_users.add(user3)
+
+In [41]: book1.liked_users.all()
+Out[41]: <QuerySet [<User: Brian Kang brian@me.com>, <User: Brian Pang b@me.com>, <User: Brian Cang c@me.com>]>
+
+In [42]: book1.uploader.all()
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-42-61c2514abeb2> in <module>()
+----> 1 book1.uploader.all()
+
+AttributeError: 'User' object has no attribute 'all'
+
+In [43]: book1.uploader
+Out[43]: <User: Brian Kang brian@me.com>
+
+In [44]: book2.liked_users.all()
+Out[44]: <QuerySet [<User: Brian Cang c@me.com>]>
+
+In [45]: book2.uploader
+Out[45]: <User: Brian Kang brian@me.com>
+
+In [46]: 
