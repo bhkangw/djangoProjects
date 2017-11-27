@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books Home</title>
+</head>
+<body>
+    <h1>Welcome {{request.session.user_name}}</h1>
+    <a href="/books/add">Add Book and Review</a> | 
+    <a href="/logout">Logout</a>
+    <div>
+        <h2>Recent Book Reviews:</h2>
+        {% for i in recent %}
+            <p><a href="/books/books/{{i.book.id}}">{{i.book.title}}</a></p>
+            <p>Rating:
+            {% for r in i.rating%}
+                <img src="http://s3.amazonaws.com/pix.iemoji.com/hang33/0686.png" alt="flame">
+            {% endfor %}</p>
+            <p><a href="/users/{{i.user.id}}">{{i.user.first_name}}</a> says: {{i.content}}</p>
+            <p>{{i.created_at}}</p><hr>
+        {% endfor %}
+    </div>
+    <div>
+        <h2>Other Books with Reviews:</h2>
+        <div>
+            {% for i in more %}
+                <p><a href="/books/books/{{i.book.id}}">{{i.book.title}}</a></p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
